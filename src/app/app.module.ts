@@ -8,6 +8,7 @@ import { StoreModule } from "@ngrx/store";
 import { CoreModule } from "./modules/core/core.module";
 import { EffectsModule } from "@ngrx/effects";
 import { AuthModule } from "./modules/auth/auth.module";
+import { IndexCardsModule } from "./modules/index-cards/index-cards.module";
 
 @NgModule({
     declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { AuthModule } from "./modules/auth/auth.module";
         AppRoutingModule,
         BrowserAnimationsModule,
         AuthModule,
+        IndexCardsModule,
         CoreModule,
         StoreModule.forRoot({}, {}),
         EffectsModule.forRoot([]),

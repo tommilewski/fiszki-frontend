@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { LoginForm, RegisterForm } from "../models/forms.model";
+import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { IndexCardsForm, LoginForm, RegisterForm } from "../models/forms.model";
 import { equivalentValidator } from "../../shared/validators/equivalent.validator";
 import { passwordValidator } from "../../shared/validators/password.validator";
 
@@ -48,6 +48,17 @@ export class FormService {
                 ],
             },
         );
+    }
+
+    initIndexCardsForm(): FormGroup<IndexCardsForm> {
+        return new FormGroup({
+            name: new FormControl("", { nonNullable: true }),
+            type: new FormControl("", { nonNullable: true }),
+            words: new FormArray([new FormControl("", { nonNullable: true })]),
+            translations: new FormArray([
+                new FormControl("", { nonNullable: true }),
+            ]),
+        });
     }
 
     getErrorMessage(control: FormControl): string {

@@ -1,0 +1,26 @@
+<form [formGroup]="loginForm">
+    <div class="form-input">
+        <mat-form-field appearance="fill">
+            <mat-label>Nazwa użytkownika</mat-label>
+            <input matInput [formControl]="controls.username">
+            <mat-error *ngIf="controls.username.invalid">{{getErrorMessage(controls.username)}}</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="form-input">
+        <mat-form-field appearance="fill">
+            <mat-label>Hasło</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [formControl]="controls.password">
+            <mat-error *ngIf="controls.password.invalid">{{getErrorMessage(controls.password)}}</mat-error>
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Zaloguj się</button>
+    </div>
+    <p class="text-center">Nie masz konta? <a [routerLink]="'/rejestracja'">Zarejestruj się</a></p>
+    <p class="text-center">Zapomniałeś hasła? <a href="">Odzyskaj hasło</a></p>
+</form>

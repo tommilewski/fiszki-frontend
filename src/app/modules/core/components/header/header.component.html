@@ -10,7 +10,12 @@
                     <a class="nav-link text-white" [routerLink]="'/stworz-fiszke'">Stwórz fiszkę</a>
                 </li>
             </ul>
-            <a class="nav-link text-white" [routerLink]="'/logowanie'">Zaloguj się</a>
+            <ng-container *ngIf="user$ | async; else notUser">
+                <button class="nav-link text-white" (click)="logout()">Wyloguj się</button>
+            </ng-container>
+            <ng-template #notUser>
+                <a class="nav-link text-white" [routerLink]="'/logowanie'">Zaloguj się</a>
+            </ng-template>
         </div>
     </div>
 </nav>

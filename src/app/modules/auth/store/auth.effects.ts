@@ -20,7 +20,7 @@ export class AuthEffects {
                     catchError((err) =>
                         of(
                             AuthActions.loginFailure({
-                                error: "Wystąpił błąd!",
+                                error: err,
                             }),
                         ),
                     ),
@@ -60,7 +60,7 @@ export class AuthEffects {
                     catchError((err) =>
                         of(
                             AuthActions.registerFailure({
-                                error: "Wystąpił błąd!",
+                                error: err,
                             }),
                         ),
                     ),

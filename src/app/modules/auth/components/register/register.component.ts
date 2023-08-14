@@ -5,6 +5,8 @@ import { FormService } from "../../../core/services/form.service";
 import { AppState } from "../../../../store/app.reducer";
 import { Store } from "@ngrx/store";
 import * as AuthActions from "..//../store/auth.actions";
+import { Observable } from "rxjs";
+import { selectAuthError } from "../../store/auth.selectors";
 
 @Component({
     selector: "app-register",
@@ -16,6 +18,10 @@ export class RegisterComponent implements OnDestroy {
     isRepeatedPasswordHide = true;
 
     registerForm: FormGroup<RegisterForm> = this.formService.initRegisterForm();
+
+    errorMessage$: Observable<string | null> =
+        this.store.select(selectAuthError);
+
     constructor(
         private formService: FormService,
         private store: Store<AppState>,

@@ -24,3 +24,9 @@
     <p class="text-center">Nie masz konta? <a [routerLink]="'/rejestracja'">Zarejestruj się</a></p>
     <p class="text-center">Zapomniałeś hasła? <a href="">Odzyskaj hasło</a></p>
 </form>
+
+<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert" *ngIf="errorMessage$ | async as error">
+    {{error}}
+</div>
+
+<app-spinner></app-spinner>

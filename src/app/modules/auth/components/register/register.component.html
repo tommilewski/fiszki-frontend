@@ -39,3 +39,9 @@
         <button type="submit" mat-raised-button color="primary" [disabled]="registerForm.invalid">Zarejestruj się</button>
     </div>
 </form>
+
+<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert" *ngIf="errorMessage$ | async as error">
+    {{error}}
+</div>
+
+<app-spinner></app-spinner>

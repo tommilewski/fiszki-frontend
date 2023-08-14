@@ -5,6 +5,8 @@ import { LoginForm } from "../../../core/models/forms.model";
 import { AppState } from "../../../../store/app.reducer";
 import { Store } from "@ngrx/store";
 import * as AuthActions from "..//../store/auth.actions";
+import { Observable } from "rxjs";
+import { selectAuthError } from "../../store/auth.selectors";
 
 @Component({
     selector: "app-login",
@@ -15,6 +17,8 @@ export class LoginComponent implements OnDestroy {
     hide = true;
 
     loginForm: FormGroup<LoginForm> = this.formService.initLoginForm();
+    errorMessage$: Observable<string | null> =
+        this.store.select(selectAuthError);
     constructor(
         private formService: FormService,
         private store: Store<AppState>,

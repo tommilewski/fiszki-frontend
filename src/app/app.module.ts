@@ -10,9 +10,10 @@ import { EffectsModule } from "@ngrx/effects";
 import { AuthModule } from "./modules/auth/auth.module";
 import { IndexCardsModule } from "./modules/index-cards/index-cards.module";
 import { authReducer } from "./modules/auth/store/auth.reducer";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { AuthEffects } from "./modules/auth/store/auth.effects";
 import { NotifierModule, NotifierOptions } from "angular-notifier";
+import { ErrorHandlingInterceptor } from "./modules/core/interceptors/error-handling.interceptor";
 
 const customNotifier: NotifierOptions = {
     position: {
@@ -69,7 +70,13 @@ const customNotifier: NotifierOptions = {
         EffectsModule.forRoot([AuthEffects]),
         NotifierModule.withConfig(customNotifier),
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorHandlingInterceptor,
+            multi: true,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

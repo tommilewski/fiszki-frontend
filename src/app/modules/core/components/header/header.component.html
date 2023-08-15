@@ -5,13 +5,19 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link text-white" [routerLink]="'/stworz-fiszke'">Stwórz fiszkę</a>
-                </li>
-            </ul>
+            <ng-container *ngIf="user$ | async as user">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" [routerLink]="'/stworz-fiszke'">Stwórz fiszkę</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" [routerLink]="'/konto/' + user.username">Moje konto</a>
+                    </li>
+                </ul>
+            </ng-container>
+
             <ng-container *ngIf="user$ | async; else notUser">
-                <button class="nav-link text-white" (click)="logout()">Wyloguj się</button>
+                <button class="nav-link text-white button" (click)="logout()">Wyloguj się</button>
             </ng-container>
             <ng-template #notUser>
                 <a class="nav-link text-white" [routerLink]="'/logowanie'">Zaloguj się</a>

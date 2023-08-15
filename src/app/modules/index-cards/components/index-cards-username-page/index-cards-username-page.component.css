@@ -1,0 +1,14 @@
+.header{
+    border-bottom: 2px solid #000;
+}
+.icon {
+    display: block;
+    transform: scale(5);
+}
+
+.card {
+    width: 300px;
+    height: 300px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}

@@ -2,6 +2,14 @@ import { Component } from "@angular/core";
 import { FormService } from "../../../core/services/form.service";
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
 import { IndexCardsForm } from "../../../core/models/forms.model";
+import { IndexCardsService } from "../../../core/services/index-cards.service";
+import { AppState } from "../../../../store/app.reducer";
+import { Store } from "@ngrx/store";
+import { selectAuthUser } from "../../../auth/store/auth.selectors";
+import { Observable, switchMap } from "rxjs";
+import { User } from "../../../core/models/auth.model";
+import { NotifierService } from "angular-notifier";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-index-cards-form",
@@ -12,7 +20,15 @@ export class IndexCardsFormComponent {
     indexCardsForm: FormGroup<IndexCardsForm> =
         this.formService.initIndexCardsForm();
 
-    constructor(private formService: FormService) {}
+    user$: Observable<User | null> = this.store.select(selectAuthUser);
+
+    constructor(
+        private formService: FormService,
+        private indexCardsService: IndexCardsService,
+        private store: Store<AppState>,
+        private notifierService: NotifierService,
+        private router: Router,
+    ) {}
 
     get words() {
         return this.indexCardsForm.controls.words as FormArray;
@@ -40,7 +56,44 @@ export class IndexCardsFormComponent {
         this.translations.removeAt(index);
     }
 
+    // onSubmit() {
+    //     this.user$.subscribe({
+    //         next: (user) => {
+    //             const username = user?.username as string;
+    //             this.indexCardsService
+    //                 .addIndexCard(this.indexCardsForm.getRawValue(), username)
+    //                 .subscribe({
+    //                     next: () => {
+    //                         this.router.navigate(["/"]);
+    //                         this.notifierService.notify(
+    //                             "success",
+    //                             "Poprawnie utworzono fiszkę!",
+    //                         );
+    //                     },
+    //                 });
+    //         },
+    //     });
+    // }
+
     onSubmit() {
-        console.log(this.indexCardsForm.getRawValue());
+        this.user$
+            .pipe(
+                switchMap((user) => {
+                    const username = user?.username as string;
+                    return this.indexCardsService.addIndexCard(
+                        this.indexCardsForm.getRawValue(),
+                        username,
+                    );
+                }),
+            )
+            .subscribe({
+                next: () => {
+                    this.router.navigate(["/"]);
+                    this.notifierService.notify(
+                        "success",
+                        "Poprawnie utworzono fiszkę!",
+                    );
+                },
+            });
     }
 }

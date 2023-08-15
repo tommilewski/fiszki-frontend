@@ -7,3 +7,9 @@
 .navbar .nav-item {
     margin: 0 10px;
 }
+
+.button {
+    border: none;
+    background: #1f2327;
+    color: white;
+}

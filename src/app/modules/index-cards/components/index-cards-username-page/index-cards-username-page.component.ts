@@ -15,10 +15,11 @@ import { User } from "../../../core/models/auth.model";
 })
 export class IndexCardsUsernamePageComponent implements OnInit {
     indexCards!: IndexCardResponse[];
-    username!: string;
+    username = "";
     isYourAccount!: boolean;
 
     user$: Observable<User | null> = this.store.select(selectAuthUser);
+    errorMessage = "";
     constructor(
         private indexCardsService: IndexCardsService,
         private route: ActivatedRoute,
@@ -26,16 +27,6 @@ export class IndexCardsUsernamePageComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.user$.subscribe({
-            next: (user: User | null) => {
-                if (user === null) {
-                    this.isYourAccount = false;
-                } else {
-                    this.isYourAccount = user.username === this.username;
-                }
-            },
-        });
-
         if (this.indexCards === undefined) {
             this.route.paramMap
                 .pipe(
@@ -53,6 +44,13 @@ export class IndexCardsUsernamePageComponent implements OnInit {
                             JSON.stringify(value),
                         );
                         this.indexCards = value;
+                        this.indexCards.forEach((value1) =>
+                            console.log(value1.questions),
+                        );
+                    },
+                    error: (err) => {
+                        this.errorMessage = err;
+                        return;
                     },
                 });
         } else {
@@ -60,5 +58,17 @@ export class IndexCardsUsernamePageComponent implements OnInit {
                 localStorage.getItem("index-cards") as string,
             );
         }
+
+        this.user$.subscribe({
+            next: (user: User | null) => {
+                if (user === null) {
+                    this.isYourAccount = false;
+                } else {
+                    this.isYourAccount =
+                        user.username.toLowerCase() ===
+                        this.username.toLowerCase();
+                }
+            },
+        });
     }
 }

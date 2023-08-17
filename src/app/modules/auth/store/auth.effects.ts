@@ -29,6 +29,20 @@ export class AuthEffects {
         );
     });
 
+    autoLogin$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(AuthActions.autoLogin),
+            switchMap(() =>
+                this.authService.autoLogin().pipe(
+                    map((user) => {
+                        return AuthActions.autoLoginSuccess({ user });
+                    }),
+                    catchError((err) => of(AuthActions.autoLoginFailure())),
+                ),
+            ),
+        );
+    });
+
     logout$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(AuthActions.logout),

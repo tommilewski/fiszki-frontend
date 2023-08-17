@@ -28,4 +28,8 @@ export class IndexCardsService {
             params,
         });
     }
+
+    getAllPublic(): Observable<IndexCardResponse[]> {
+        return this.http.get<IndexCardResponse[]>(`${this.apiUrl}/all`);
+    }
 }

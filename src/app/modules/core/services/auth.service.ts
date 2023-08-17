@@ -5,6 +5,7 @@ import {
     AuthResponse,
     IUser,
     LoginRequest,
+    LoginResponse,
     RegisterRequest,
 } from "../models/auth.model";
 import { Observable } from "rxjs";
@@ -33,5 +34,17 @@ export class AuthService {
             `${this.apiUrl}/register`,
             registerRequest,
         );
+    }
+
+    isLoggedIn(): Observable<LoginResponse> {
+        return this.http.get<LoginResponse>(`${this.apiUrl}/logged-in`, {
+            withCredentials: true,
+        });
+    }
+
+    autoLogin(): Observable<IUser> {
+        return this.http.get<IUser>(`${this.apiUrl}/auto-login`, {
+            withCredentials: true,
+        });
     }
 }

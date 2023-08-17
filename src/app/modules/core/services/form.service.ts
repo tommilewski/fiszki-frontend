@@ -1,5 +1,11 @@
 import { Injectable } from "@angular/core";
-import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import {
+    AbstractControl,
+    FormArray,
+    FormControl,
+    FormGroup,
+    Validators,
+} from "@angular/forms";
 import { IndexCardsForm, LoginForm, RegisterForm } from "../models/forms.model";
 import { equivalentValidator } from "../../shared/validators/equivalent.validator";
 import { passwordValidator } from "../../shared/validators/password.validator";
@@ -52,16 +58,30 @@ export class FormService {
 
     initIndexCardsForm(): FormGroup<IndexCardsForm> {
         return new FormGroup({
-            name: new FormControl("", { nonNullable: true }),
-            type: new FormControl("", { nonNullable: true }),
-            words: new FormArray([new FormControl("", { nonNullable: true })]),
+            name: new FormControl("", {
+                validators: Validators.required,
+                nonNullable: true,
+            }),
+            type: new FormControl("", {
+                validators: Validators.required,
+                nonNullable: true,
+            }),
+            words: new FormArray([
+                new FormControl("", {
+                    validators: Validators.required,
+                    nonNullable: true,
+                }),
+            ]),
             translations: new FormArray([
-                new FormControl("", { nonNullable: true }),
+                new FormControl("", {
+                    validators: Validators.required,
+                    nonNullable: true,
+                }),
             ]),
         });
     }
 
-    getErrorMessage(control: FormControl): string {
+    getErrorMessage(control: AbstractControl): string {
         if (control.hasError("required")) {
             return "To pole jest wymagane!";
         }

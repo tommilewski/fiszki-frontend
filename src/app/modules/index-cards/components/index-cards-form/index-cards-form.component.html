@@ -3,14 +3,16 @@
         <mat-form-field class="w-75" appearance="fill">
             <mat-label>Nazwa</mat-label>
             <input matInput [formControl]="controls.name" >
+            <mat-error *ngIf="controls.name.invalid">{{getErrorMessage(controls.name)}}</mat-error>
         </mat-form-field>
     </div>
 
     <div class="text-center mb-4">
         <mat-radio-group aria-label="Rodzaj" [formControl]="controls.type">
-            <mat-radio-button value="public">Publiczna</mat-radio-button>
-            <mat-radio-button value="private">Prywatna</mat-radio-button>
+            <mat-radio-button value="publiczna">Publiczna</mat-radio-button>
+            <mat-radio-button value="prywatna">Prywatna</mat-radio-button>
         </mat-radio-group>
+        <mat-error *ngIf="controls.type.invalid">{{getErrorMessage(controls.type)}}</mat-error>
     </div>
 
     <div class="questions d-flex justify-content-center text-center w-100">
@@ -20,6 +22,7 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Słowo</mat-label>
                         <input matInput formControlName="{{i}}">
+                        <mat-error *ngIf="controls.words.invalid">{{getErrorMessage(controls.words.at(i))}}</mat-error>
                     </mat-form-field>
                 </div>
             </ng-container>
@@ -31,6 +34,7 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Tłumaczenie</mat-label>
                         <input matInput formControlName="{{i}}" >
+                        <mat-error *ngIf="controls.translations.invalid">{{getErrorMessage(controls.translations.at(i))}}</mat-error>
                     </mat-form-field>
                 </div>
             </ng-container>
@@ -50,7 +54,7 @@
 
 
     <div class="d-flex justify-content-center w-100 text-center mt-5 p-5">
-        <button class="w-75" type="submit" mat-raised-button color="primary">Utwórz</button>
+        <button class="w-75" type="submit" mat-raised-button color="primary" [disabled]="indexCardsForm.invalid">Utwórz</button>
     </div>
 
 </form>

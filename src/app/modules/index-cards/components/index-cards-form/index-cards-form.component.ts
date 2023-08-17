@@ -1,6 +1,11 @@
 import { Component } from "@angular/core";
 import { FormService } from "../../../core/services/form.service";
-import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import {
+    AbstractControl,
+    FormArray,
+    FormControl,
+    FormGroup,
+} from "@angular/forms";
 import { IndexCardsForm } from "../../../core/models/forms.model";
 import { IndexCardsService } from "../../../core/services/index-cards.service";
 import { AppState } from "../../../../store/app.reducer";
@@ -55,26 +60,6 @@ export class IndexCardsFormComponent {
         this.words.removeAt(index);
         this.translations.removeAt(index);
     }
-
-    // onSubmit() {
-    //     this.user$.subscribe({
-    //         next: (user) => {
-    //             const username = user?.username as string;
-    //             this.indexCardsService
-    //                 .addIndexCard(this.indexCardsForm.getRawValue(), username)
-    //                 .subscribe({
-    //                     next: () => {
-    //                         this.router.navigate(["/"]);
-    //                         this.notifierService.notify(
-    //                             "success",
-    //                             "Poprawnie utworzono fiszkę!",
-    //                         );
-    //                     },
-    //                 });
-    //         },
-    //     });
-    // }
-
     onSubmit() {
         this.user$
             .pipe(
@@ -95,5 +80,9 @@ export class IndexCardsFormComponent {
                     );
                 },
             });
+    }
+
+    getErrorMessage(control: AbstractControl) {
+        return this.formService.getErrorMessage(control);
     }
 }

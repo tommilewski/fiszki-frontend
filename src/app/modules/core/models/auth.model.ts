@@ -28,3 +28,9 @@ export interface AuthResponse {
     message: string;
     code: string;
 }
+
+export interface LoginResponse {
+    timestamp: string;
+    message: boolean;
+    code: string;
+}

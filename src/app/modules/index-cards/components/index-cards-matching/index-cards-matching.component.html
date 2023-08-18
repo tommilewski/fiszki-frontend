@@ -1,0 +1,14 @@
+<div class="container d-flex flex-wrap w-100">
+    <ng-container *ngFor="let question of randomQuestionsArr; let i = index">
+        <mat-card class="card-animation d-flex justify-content-center align-items-center mx-2 mt-2"[ngClass]="{'correct': matchedIndexes.includes(i)}" (click)="game(question, i)">
+            <mat-card-content>{{question}}</mat-card-content>
+        </mat-card>
+    </ng-container>
+</div>
+
+<div class="container w-100 d-flex flex-column justify-content-center align-items-center mt-5">
+    <ng-container *ngIf="isGameWon">
+        <h2>Gratulacje!!!</h2>
+        <button class="mx-4 w-25" mat-raised-button color="primary" (click)="restartGame()">Jeszcze raz?</button>
+    </ng-container>
+</div>

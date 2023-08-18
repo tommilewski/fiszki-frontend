@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { IndexCardResponse } from "../../../core/models/index-cards.model";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-index-cards-list",
@@ -7,11 +8,22 @@ import { IndexCardResponse } from "../../../core/models/index-cards.model";
     styleUrls: ["./index-cards-list.component.css"],
 })
 export class IndexCardsListComponent {
-    @Input() firstButtonText!: string;
-    @Input() secondButtonText!: string;
     @Input() onlyPublic!: boolean;
 
     @Input() indexCards!: IndexCardResponse[];
 
-    protected readonly myObject = Object;
+    isHeartRed = false;
+    constructor(private router: Router) {}
+
+    click(event: Event, id: number) {
+        if (event.target instanceof HTMLElement) {
+            if (event.target.tagName === "MAT-CARD") {
+                this.router.navigate(["/fiszka/" + id]);
+            }
+        }
+    }
+
+    toggleLike() {
+        this.isHeartRed = !this.isHeartRed;
+    }
 }

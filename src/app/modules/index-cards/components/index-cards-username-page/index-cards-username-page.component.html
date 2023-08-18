@@ -7,7 +7,7 @@
 <ng-container *ngIf="!errorMessage">
     <div class="header container d-flex justify-content-center align-items-center mt-5 w-100 p-2">
         <div class="icon">
-            <mat-icon class="mx-4">person</mat-icon>
+            <mat-icon class="mx-4">account_circle</mat-icon>
         </div>
         <h1 class="mx-4">{{username}}</h1>
         <div class="d-flex justify-content-end w-75">
@@ -19,11 +19,11 @@
     </div>
 
     <ng-container *ngIf="isYourAccount">
-        <app-index-cards-list [firstButtonText]="'EDYTUJ'" [secondButtonText]="'USUŃ'" [onlyPublic]="false" [indexCards]="indexCards"></app-index-cards-list>
+        <app-index-cards-list [onlyPublic]="false" [indexCards]="indexCards"></app-index-cards-list>
     </ng-container>
 
     <ng-container *ngIf="!isYourAccount">
-        <app-index-cards-list [firstButtonText]="'LIKE'" [secondButtonText]="'GRAJ'" [onlyPublic]="true" [indexCards]="indexCards"></app-index-cards-list>
+        <app-index-cards-list [onlyPublic]="true" [indexCards]="indexCards"></app-index-cards-list>
     </ng-container>
 </ng-container>
 

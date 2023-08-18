@@ -1,1 +1,9 @@
-<app-index-cards-list [firstButtonText]="'LIKE'" [secondButtonText]="'GRAJ'" [onlyPublic]="true" [indexCards]="indexCards"></app-index-cards-list>
+<div class="container w-100">
+    <div class="w-100 d-flex justify-content-center align-items-center">
+        <mat-form-field class="w-50">
+            <mat-label>Szukaj</mat-label>
+            <input matInput>
+        </mat-form-field>
+    </div>
+    <app-index-cards-list [onlyPublic]="true" [indexCards]="indexCards"></app-index-cards-list>
+</div>

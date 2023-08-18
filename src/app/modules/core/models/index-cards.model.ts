@@ -6,8 +6,10 @@ export interface IndexCardRequest {
 }
 
 export interface IndexCardResponse {
+    id: number;
     name: string;
     type: string;
-    questions: Map<string, string>;
+    words: string[];
+    translations: string[];
     username: string;
 }

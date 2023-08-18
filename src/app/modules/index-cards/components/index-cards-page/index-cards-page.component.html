@@ -1,0 +1,36 @@
+<ng-container *ngIf="errorMessage">
+    <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+        {{errorMessage}}
+    </div>
+</ng-container>
+
+
+<ng-container *ngIf="!errorMessage">
+    <div class="container w-100 d-flex flex-column align-items-center mt-5">
+        <div class="card-container">
+            <div class="card" [ngClass]="{'flipped': isFlipped}" (click)="toggleFlip()">
+                <div class="front">
+                    <h2>{{ words[currentQuestionIndex] }}</h2>
+                </div>
+                <div class="back">
+                    <h2>{{ translations[currentQuestionIndex] }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="slider-controls text-center justify-content-center align-items-center mt-3">
+            <button class="w-50" mat-icon-button (click)="prevQuestion()">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <button class="w-50" mat-icon-button (click)="nextQuestion()">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </div>
+
+        <div class="options d-flex justify-content-center align-items-center flex-column w-100 text-center mt-5">
+            <button class="button" type="button">SPRAWDŹ SIĘ</button>
+            <button class="button" type="button" (click)="navigateToMatchingGame()">DOPASOWANIE</button>
+        </div>
+    </div>
+</ng-container>
+

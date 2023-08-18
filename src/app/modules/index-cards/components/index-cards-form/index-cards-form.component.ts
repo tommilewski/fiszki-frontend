@@ -5,6 +5,7 @@ import {
     FormArray,
     FormControl,
     FormGroup,
+    Validators,
 } from "@angular/forms";
 import { IndexCardsForm } from "../../../core/models/forms.model";
 import { IndexCardsService } from "../../../core/services/index-cards.service";
@@ -48,8 +49,18 @@ export class IndexCardsFormComponent {
     }
 
     onAdd() {
-        this.words.push(new FormControl("", { nonNullable: true }));
-        this.translations.push(new FormControl("", { nonNullable: true }));
+        this.words.push(
+            new FormControl("", {
+                validators: Validators.required,
+                nonNullable: true,
+            }),
+        );
+        this.translations.push(
+            new FormControl("", {
+                validators: Validators.required,
+                nonNullable: true,
+            }),
+        );
     }
 
     onRemove() {

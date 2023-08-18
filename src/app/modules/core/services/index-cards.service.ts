@@ -32,4 +32,8 @@ export class IndexCardsService {
     getAllPublic(): Observable<IndexCardResponse[]> {
         return this.http.get<IndexCardResponse[]>(`${this.apiUrl}/all`);
     }
+
+    getById(id: string): Observable<IndexCardResponse> {
+        return this.http.get<IndexCardResponse>(`${this.apiUrl}/get/${id}`);
+    }
 }

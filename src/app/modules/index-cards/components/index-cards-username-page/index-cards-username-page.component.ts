@@ -44,9 +44,6 @@ export class IndexCardsUsernamePageComponent implements OnInit {
                             JSON.stringify(value),
                         );
                         this.indexCards = value;
-                        this.indexCards.forEach((value1) =>
-                            console.log(value1.questions),
-                        );
                     },
                     error: (err) => {
                         this.errorMessage = err;

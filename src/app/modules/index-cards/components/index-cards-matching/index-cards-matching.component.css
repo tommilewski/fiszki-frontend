@@ -1,0 +1,51 @@
+/*@keyframes fadeIn {*/
+/*    from {*/
+/*        opacity: 0;*/
+/*        transform: translateY(20px);*/
+/*    }*/
+/*    to {*/
+/*        opacity: 1;*/
+/*        transform: translateY(0);*/
+/*    }*/
+/*}*/
+
+
+@keyframes colorChange {
+    from {
+        background: transparent;
+    }
+    to {
+        background: #31ff31;
+    }
+}
+
+
+
+
+mat-card {
+    width: 300px;
+    height: 300px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+mat-card-content {
+    font-size: 26px;
+}
+
+mat-card:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.correct {
+    animation: colorChange 0.5s ease-in-out;
+    background: #31ff31;
+
+}
+
+/*.card-animation {*/
+/*    animation: fadeIn 0.5s ease-out forwards;*/
+/*    opacity: 0;*/
+/*}*/
+

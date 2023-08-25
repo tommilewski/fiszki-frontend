@@ -13,7 +13,7 @@
                     <mat-card-content  class="mt-4">
                         <p>Zestaw zawiera {{card.words.length}} pytań</p>
                     </mat-card-content>
-                    <mat-icon  [ngClass]="{ 'red-heart': isHeartRed }" (click)="toggleLike()">favorite_border</mat-icon>
+                    <mat-icon [ngClass]="{ 'red-heart': updatedList.includes(String(card.id))}" (click)="toggleLike(String(card.id))">favorite_border</mat-icon>
                 </mat-card>
 
             </ng-container>

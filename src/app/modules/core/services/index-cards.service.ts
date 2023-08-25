@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
-import { User } from "../models/auth.model";
 import {
     IndexCardRequest,
     IndexCardResponse,
@@ -35,5 +34,21 @@ export class IndexCardsService {
 
     getById(id: string): Observable<IndexCardResponse> {
         return this.http.get<IndexCardResponse>(`${this.apiUrl}/get/${id}`);
+    }
+
+    getFavoritesByUser(username: string): Observable<string[]> {
+        return this.http.get<string[]>(
+            `${this.apiUrl}/get/favorite/${username}`,
+        );
+    }
+
+    updateFavourite(
+        username: string,
+        updatedList: string[],
+    ): Observable<Record<string, never>> {
+        return this.http.patch<Record<string, never>>(
+            `${this.apiUrl}/update/favorite/${username}`,
+            updatedList,
+        );
     }
 }

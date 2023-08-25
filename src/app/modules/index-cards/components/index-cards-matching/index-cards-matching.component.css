@@ -1,15 +1,3 @@
-/*@keyframes fadeIn {*/
-/*    from {*/
-/*        opacity: 0;*/
-/*        transform: translateY(20px);*/
-/*    }*/
-/*    to {*/
-/*        opacity: 1;*/
-/*        transform: translateY(0);*/
-/*    }*/
-/*}*/
-
-
 @keyframes colorChange {
     from {
         background: transparent;
@@ -23,8 +11,8 @@
 
 
 mat-card {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
@@ -44,8 +32,4 @@ mat-card:hover {
 
 }
 
-/*.card-animation {*/
-/*    animation: fadeIn 0.5s ease-out forwards;*/
-/*    opacity: 0;*/
-/*}*/
 

@@ -13,9 +13,16 @@ import { User } from "../../models/auth.model";
 })
 export class HeaderComponent {
     user$: Observable<User | null> = this.store.select(selectAuthUser);
+    isNotificationsExpanded = false;
+
+    friendRequests: any[] = ["tomasz", "ewelina"];
     constructor(private store: Store<AppState>) {}
 
     logout() {
         this.store.dispatch(AuthActions.logout());
+    }
+
+    toggleNotifications() {
+        this.isNotificationsExpanded = !this.isNotificationsExpanded;
     }
 }

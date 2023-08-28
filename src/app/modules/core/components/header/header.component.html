@@ -8,19 +8,47 @@
             <ng-container *ngIf="user$ | async as user">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link text-white" [routerLink]="'/stworz-fiszke'">Stwórz fiszkę</a>
+                        <a class="nav-link text-white d-flex justify-content-center align-items-center" [routerLink]="'/stworz-fiszke'">
+                            <mat-icon class="mx-1">add</mat-icon>Stwórz fiszkę</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" [routerLink]="'/konto/' + user.username">Moje konto</a>
+                        <a class="nav-link text-white d-flex justify-content-center align-items-center" [routerLink]="'/konto/' + user.username">
+                            <mat-icon class="mx-1">person</mat-icon>Moje konto</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="notifications-container">
+                            <a class="nav-link text-white d-flex justify-content-center align-items-center" (click)="toggleNotifications()">
+                                <mat-icon [matBadge]="friendRequests.length" aria-hidden="false" matBadgeColor="warn" class="mx-1">notifications</mat-icon></a>
+                            <div class="notifications-panel" *ngIf="isNotificationsExpanded">
+                                <div *ngIf="friendRequests.length === 0">
+                                    <div class="text-center w-100">Brak powiadomień</div>
+                                </div>
+                                <div *ngFor="let request of friendRequests" class="friend-request d-flex flex-column">
+                                    <div class="text-center w-100"><strong>{{ request }}</strong> wysłał/a zaproszenie do znajomych</div>
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <button mat-raised-button color="primary">Zaakceptuj</button>
+                                        <button mat-raised-button color="warn">Odrzuć</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex justify-content-center align-items-center" [routerLink]="'/ulubione/' + user.username">
+                            <mat-icon class="mx-1">favorite</mat-icon>Ulubione</a>
                     </li>
                 </ul>
             </ng-container>
 
             <ng-container *ngIf="user$ | async; else notUser">
-                <button class="nav-link text-white button" (click)="logout()">Wyloguj się</button>
+                <button class="nav-link text-white button d-flex justify-content-center align-items-center" (click)="logout()">
+                    <mat-icon class="mx-1">logout</mat-icon>Wyloguj się</button>
             </ng-container>
             <ng-template #notUser>
-                <a class="nav-link text-white" [routerLink]="'/logowanie'">Zaloguj się</a>
+                <a class="nav-link text-white d-flex justify-content-center align-items-center" [routerLink]="'/logowanie'">
+                    <mat-icon class="mx-1">login</mat-icon>Zaloguj się</a>
             </ng-template>
         </div>
     </div>

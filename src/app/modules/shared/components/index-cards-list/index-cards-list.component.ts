@@ -18,6 +18,8 @@ export class IndexCardsListComponent implements OnInit {
 
     @Input() indexCards!: IndexCardResponse[];
 
+    @Input() onlyFavorites!: boolean;
+
     user$: Observable<User | null> = this.store.select(selectAuthUser);
     username = "";
 
@@ -54,9 +56,11 @@ export class IndexCardsListComponent implements OnInit {
             this.router.navigate(["/logowanie"]);
             return;
         }
-
         if (event.target instanceof HTMLElement) {
-            if (event.target.tagName !== "MAT-ICON") {
+            if (
+                event.target.tagName !== "MAT-ICON" &&
+                event.target.tagName !== "MAT-CARD-SUBTITLE"
+            ) {
                 this.router.navigate(["/fiszka/" + id]);
             }
         }
@@ -78,6 +82,10 @@ export class IndexCardsListComponent implements OnInit {
         this.indexCardService
             .updateFavourite(this.username, this.updatedList)
             .subscribe();
+    }
+
+    goToUserPage(username: string) {
+        this.router.navigate(["/konto/" + username]);
     }
 
     protected readonly String = String;

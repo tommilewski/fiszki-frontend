@@ -15,15 +15,18 @@
                 <button class="mx-4 w-25" mat-raised-button color="primary">Edytuj</button>
                 <button class="mx-4 w-25" mat-raised-button color="warn">Usuń</button>
             </ng-container>
+            <ng-container *ngIf="!isYourAccount">
+                <button class="mx-4 w-25" mat-raised-button color="primary">Dodaj do znajomych</button>
+            </ng-container>
         </div>
     </div>
 
     <ng-container *ngIf="isYourAccount">
-        <app-index-cards-list [onlyPublic]="false" [indexCards]="indexCards"></app-index-cards-list>
+        <app-index-cards-list [onlyPublic]="false" [indexCards]="indexCards" [onlyFavorites]="false"></app-index-cards-list>
     </ng-container>
 
     <ng-container *ngIf="!isYourAccount">
-        <app-index-cards-list [onlyPublic]="true" [indexCards]="indexCards"></app-index-cards-list>
+        <app-index-cards-list [onlyPublic]="true" [indexCards]="indexCards" [onlyFavorites]="false"></app-index-cards-list>
     </ng-container>
 </ng-container>
 

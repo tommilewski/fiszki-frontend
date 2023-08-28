@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transition: right 0.3s ease-in-out;
+}
+
+.toggle-button {
+    margin-bottom: 10px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+}
+
+.content.open {
+    right: 285px;
+}
+
+.friends-list {
+    position: fixed;
+    top: 55px;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #f0f0f0;
+    overflow: hidden;
+    transition: right 0.3s ease-in-out;
+}
+
+.friends-list.open {
+    right: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+li:hover {
+    background-color: #d2d0d0;
+    cursor: pointer;
+}

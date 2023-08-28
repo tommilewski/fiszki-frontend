@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="content" [ngClass]="{ 'open': isFriendsListOpen }">
+        <button class="toggle-button d-flex justify-content-center align-items-center"
+                (click)="toggleFriendsList()"><mat-icon>{{isFriendsListOpen ? "keyboard_arrow_right" : "keyboard_arrow_left" }}</mat-icon></button>
+    </div>
+</div>
+<div class="friends-list" [ngClass]="{ 'open': isFriendsListOpen }">
+    <mat-form-field class="d-flex justify-content-center align-items-center">
+        <mat-label>Szukaj</mat-label>
+        <input matInput>
+    </mat-form-field>
+    <ul>
+        <li *ngFor="let friend of friends" class="d-flex justify-content-between align-items-center">
+            {{ friend }}<mat-icon aria-hidden="false">delete</mat-icon>
+        </li>
+    </ul>
+</div>
+

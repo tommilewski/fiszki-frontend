@@ -5,6 +5,7 @@ import { IndexCardsUsernamePageComponent } from "./components/index-cards-userna
 import { IndexCardsHomeComponent } from "./components/index-cards-home/index-cards-home.component";
 import { IndexCardsPageComponent } from "./components/index-cards-page/index-cards-page.component";
 import { IndexCardsMatchingComponent } from "./components/index-cards-matching/index-cards-matching.component";
+import { IndexCardsFavoritesComponent } from "./components/index-cards-favorites/index-cards-favorites.component";
 
 const routes: Routes = [
     { path: "", component: IndexCardsHomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
     },
     { path: "fiszka/:id", component: IndexCardsPageComponent },
     { path: "dopasowanie/:id", component: IndexCardsMatchingComponent },
+    { path: "ulubione/:username", component: IndexCardsFavoritesComponent },
 ];
 
 @NgModule({

@@ -36,6 +36,12 @@ export class IndexCardsService {
         return this.http.get<IndexCardResponse>(`${this.apiUrl}/get/${id}`);
     }
 
+    getAllFavoritesByUser(username: string): Observable<IndexCardResponse[]> {
+        return this.http.get<IndexCardResponse[]>(
+            `${this.apiUrl}/get-all/favorites/${username}`,
+        );
+    }
+
     getFavoritesByUser(username: string): Observable<string[]> {
         return this.http.get<string[]>(
             `${this.apiUrl}/get/favorite/${username}`,

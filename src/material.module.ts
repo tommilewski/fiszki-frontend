@@ -6,6 +6,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatCardModule } from "@angular/material/card";
+import { MatBadgeModule } from "@angular/material/badge";
 
 @NgModule({
     exports: [
@@ -16,6 +17,7 @@ import { MatCardModule } from "@angular/material/card";
         MatRadioModule,
         MatProgressSpinnerModule,
         MatCardModule,
+        MatBadgeModule,
     ],
 })
 export class MaterialModule {}

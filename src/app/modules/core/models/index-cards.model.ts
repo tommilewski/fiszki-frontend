@@ -12,5 +12,4 @@ export interface IndexCardResponse {
     words: string[];
     translations: string[];
     username: string;
-    usersWhoFavorite: string[];
 }

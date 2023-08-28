@@ -16,23 +16,7 @@
                             <mat-icon class="mx-1">person</mat-icon>Moje konto</a>
                     </li>
                     <li class="nav-item">
-                        <div class="notifications-container">
-                            <a class="nav-link text-white d-flex justify-content-center align-items-center" (click)="toggleNotifications()">
-                                <mat-icon [matBadge]="friendRequests.length" aria-hidden="false" matBadgeColor="warn" class="mx-1">notifications</mat-icon></a>
-                            <div class="notifications-panel" *ngIf="isNotificationsExpanded">
-                                <div *ngIf="friendRequests.length === 0">
-                                    <div class="text-center w-100">Brak powiadomień</div>
-                                </div>
-                                <div *ngFor="let request of friendRequests" class="friend-request d-flex flex-column">
-                                    <div class="text-center w-100"><strong>{{ request }}</strong> wysłał/a zaproszenie do znajomych</div>
-                                    <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <button mat-raised-button color="primary">Zaakceptuj</button>
-                                        <button mat-raised-button color="warn">Odrzuć</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        <app-friend-notifications [username]="user.username"></app-friend-notifications>
                     </li>
 
                     <li class="nav-item">

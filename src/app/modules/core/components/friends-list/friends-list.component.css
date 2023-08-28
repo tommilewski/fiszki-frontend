@@ -52,3 +52,29 @@ li:hover {
     background-color: #d2d0d0;
     cursor: pointer;
 }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+
+.button {
+    border: none;
+    width: 50%;
+    height: 100%;
+}
+
+.initial-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    margin-right: 10px;
+}

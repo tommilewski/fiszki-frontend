@@ -7,6 +7,8 @@ import { AppState } from "../../../../store/app.reducer";
 import { Store } from "@ngrx/store";
 import { selectAuthUser } from "../../../auth/store/auth.selectors";
 import { User } from "../../../core/models/auth.model";
+import { FriendNotificationsService } from "../../../core/services/friend-notifications.service";
+import { NotifierService } from "angular-notifier";
 
 @Component({
     selector: "app-index-cards-username-page",
@@ -16,6 +18,7 @@ import { User } from "../../../core/models/auth.model";
 export class IndexCardsUsernamePageComponent implements OnInit {
     indexCards!: IndexCardResponse[];
     username = "";
+    senderUsername = "";
     isYourAccount!: boolean;
 
     user$: Observable<User | null> = this.store.select(selectAuthUser);
@@ -24,6 +27,8 @@ export class IndexCardsUsernamePageComponent implements OnInit {
         private indexCardsService: IndexCardsService,
         private route: ActivatedRoute,
         private store: Store<AppState>,
+        private friendNotificationsService: FriendNotificationsService,
+        private notifierService: NotifierService,
     ) {}
 
     ngOnInit(): void {
@@ -61,11 +66,23 @@ export class IndexCardsUsernamePageComponent implements OnInit {
                 if (user === null) {
                     this.isYourAccount = false;
                 } else {
+                    this.senderUsername = user.username;
                     this.isYourAccount =
                         user.username.toLowerCase() ===
                         this.username.toLowerCase();
                 }
             },
         });
+    }
+
+    addToFriend() {
+        this.friendNotificationsService
+            .sendRequest(this.senderUsername, this.username)
+            .subscribe();
+
+        this.notifierService.notify(
+            "success",
+            "Wysłano prośbę o dodanie do znajomych",
+        );
     }
 }

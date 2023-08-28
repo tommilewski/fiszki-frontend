@@ -16,7 +16,7 @@
                 <button class="mx-4 w-25" mat-raised-button color="warn">Usuń</button>
             </ng-container>
             <ng-container *ngIf="!isYourAccount">
-                <button class="mx-4 w-25" mat-raised-button color="primary">Dodaj do znajomych</button>
+                <button class="mx-4 w-25" mat-raised-button color="primary" (click)="addToFriend()">Dodaj do znajomych</button>
             </ng-container>
         </div>
     </div>

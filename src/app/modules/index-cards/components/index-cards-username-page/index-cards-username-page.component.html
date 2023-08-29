@@ -16,7 +16,8 @@
                 <button class="mx-4 w-25" mat-raised-button color="warn">Usuń</button>
             </ng-container>
             <ng-container *ngIf="!isYourAccount">
-                <button class="mx-4 w-25" mat-raised-button color="primary" (click)="addToFriend()">Dodaj do znajomych</button>
+                <button [ngClass]="{'is-friend': friends.includes(username)}" class="mx-4 w-25" mat-raised-button color="primary" (click)="addToFriend()">
+                    {{friends.includes(username) ? "Jesteście znajomymi" : "Dodaj do znajomych"}}</button>
             </ng-container>
         </div>
     </div>

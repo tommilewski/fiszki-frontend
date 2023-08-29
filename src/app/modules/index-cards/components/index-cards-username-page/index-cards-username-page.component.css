@@ -5,3 +5,7 @@
     display: block;
     transform: scale(4);
 }
+
+.is-friend {
+    pointer-events: none;
+}

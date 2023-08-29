@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { IndexCardsService } from "../../../core/services/index-cards.service";
 import { ActivatedRoute } from "@angular/router";
-import { Observable, switchMap } from "rxjs";
+import { Observable, of, switchMap } from "rxjs";
 import { IndexCardResponse } from "../../../core/models/index-cards.model";
 import { AppState } from "../../../../store/app.reducer";
 import { Store } from "@ngrx/store";
@@ -9,6 +9,7 @@ import { selectAuthUser } from "../../../auth/store/auth.selectors";
 import { User } from "../../../core/models/auth.model";
 import { FriendNotificationsService } from "../../../core/services/friend-notifications.service";
 import { NotifierService } from "angular-notifier";
+import { FriendsService } from "../../../core/services/friends.service";
 
 @Component({
     selector: "app-index-cards-username-page",
@@ -20,6 +21,7 @@ export class IndexCardsUsernamePageComponent implements OnInit {
     username = "";
     senderUsername = "";
     isYourAccount!: boolean;
+    friends!: string[];
 
     user$: Observable<User | null> = this.store.select(selectAuthUser);
     errorMessage = "";
@@ -29,6 +31,7 @@ export class IndexCardsUsernamePageComponent implements OnInit {
         private store: Store<AppState>,
         private friendNotificationsService: FriendNotificationsService,
         private notifierService: NotifierService,
+        private friendsService: FriendsService,
     ) {}
 
     ngOnInit(): void {
@@ -73,16 +76,31 @@ export class IndexCardsUsernamePageComponent implements OnInit {
                 }
             },
         });
+
+        this.user$
+            .pipe(
+                switchMap((user) => {
+                    if (user) {
+                        return this.friendsService.getAllFriends(
+                            this.senderUsername,
+                        );
+                    }
+                    return of([]);
+                }),
+            )
+            .subscribe({ next: (value) => (this.friends = value) });
     }
 
     addToFriend() {
         this.friendNotificationsService
             .sendRequest(this.senderUsername, this.username)
-            .subscribe();
-
-        this.notifierService.notify(
-            "success",
-            "Wysłano prośbę o dodanie do znajomych",
-        );
+            .subscribe({
+                next: () => {
+                    this.notifierService.notify(
+                        "success",
+                        "Wysłano prośbę o dodanie do znajomych",
+                    );
+                },
+            });
     }
 }

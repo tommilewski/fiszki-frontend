@@ -19,7 +19,7 @@
             <input matInput>
         </mat-form-field>
         <ul>
-            <li *ngFor="let friend of friends" class="d-flex justify-content-between align-items-center">
+            <li *ngFor="let friend of friends" class="d-flex justify-content-between align-items-center" (click)="selectFriend(friend)">
                 <div class="w-75 d-flex align-items-center">
                     <div class="initial-circle">{{ getInitialLetterCircle(friend) }}</div>
                     <span>{{friend}}</span>
@@ -36,6 +36,11 @@
             <input matInput>
         </mat-form-field>
     </ng-template>
+
+    <div *ngIf="selectedFriend">
+        <app-chat [friend]="selectedFriend" (chatClosed)="closeChat()"></app-chat>
+    </div>
+
 </div>
 
 

@@ -18,6 +18,7 @@ export class FriendsListComponent implements OnInit {
     username = "";
 
     user$: Observable<User | null> = this.store.select(selectAuthUser);
+    selectedFriend: string | null = null;
 
     constructor(
         private friendsService: FriendsService,
@@ -58,5 +59,13 @@ export class FriendsListComponent implements OnInit {
 
     getInitialLetterCircle(name: string): string {
         return name.charAt(0).toUpperCase();
+    }
+
+    selectFriend(friend: string) {
+        this.selectedFriend = friend;
+    }
+
+    closeChat() {
+        this.selectedFriend = null;
     }
 }

@@ -8,10 +8,12 @@
         <div *ngFor="let request of friendRequests" class="friend-request d-flex flex-column">
             <div class="text-center w-100"><strong>{{ request.sender }}</strong> wysłał/a zaproszenie do znajomych</div>
             <div class="d-flex justify-content-between align-items-center mt-2">
-                <button mat-raised-button color="primary" (click)="acceptFriendRequest(request.id)">Zaakceptuj</button>
-                <button mat-raised-button color="warn" (click)="rejectFriendRequest(request.id)">Odrzuć</button>
+                <button mat-raised-button color="primary" (click)="acceptFriendRequest(request)">Zaakceptuj</button>
+                <button mat-raised-button color="warn" (click)="rejectFriendRequest(request)">Odrzuć</button>
             </div>
 
         </div>
     </div>
 </div>
+
+{{friendRequestsSubject.getValue()}}

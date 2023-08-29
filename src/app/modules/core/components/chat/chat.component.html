@@ -1,0 +1,20 @@
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>Czatujesz z {{friend}}</h2>
+        <button class="close-button" (click)="closeChat()">X</button>
+    </div>
+    <div class="message-list">
+        <ng-container *ngFor="let message of messages">
+            <div class="message" [ngClass]="{ 'incoming': message.incoming, 'outgoing': !message.incoming }">
+                <p>{{ message.text }}</p>
+                <small>{{ message.timestamp | date:'shortTime':'':'pl' }}</small>
+            </div>
+        </ng-container>
+    </div>
+    <div class="message-input">
+        <input type="text" placeholder="Wiadomość..." [(ngModel)]="newMessageText" />
+        <button (click)="sendMessage()">Wyślij</button>
+    </div>
+</div>
+
+

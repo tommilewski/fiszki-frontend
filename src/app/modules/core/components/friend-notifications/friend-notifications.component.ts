@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FriendNotificationResponse } from "../../models/friend-notifications.model";
 import { FriendNotificationsService } from "../../services/friend-notifications.service";
-import { BehaviorSubject } from "rxjs";
+import { ChatService } from "../../services/chat.service";
+import { ChatRequest } from "../../models/chat.model";
 
 @Component({
     selector: "app-friend-notifications",
@@ -11,40 +12,49 @@ import { BehaviorSubject } from "rxjs";
 export class FriendNotificationsComponent implements OnInit {
     isNotificationsExpanded = false;
     @Input() username!: string;
-    friendRequestsSubject = new BehaviorSubject<string>("test");
 
     friendRequests: FriendNotificationResponse[] = [];
 
     constructor(
         private friendNotificationsService: FriendNotificationsService,
+        private chatService: ChatService,
     ) {}
 
     ngOnInit(): void {
-        this.friendNotificationsService
-            .getAllByUsername(this.username)
-            .subscribe({
-                next: (value) => {
-                    this.friendRequestsSubject.next("powiadomienie");
-                    this.friendRequests = value;
-                },
-            });
+        setInterval(() => {
+            this.friendNotificationsService
+                .getAllByUsername(this.username)
+                .subscribe({
+                    next: (value) => {
+                        this.friendRequests = value;
+                    },
+                });
+        }, 1000);
     }
+
     toggleNotifications() {
         this.isNotificationsExpanded = !this.isNotificationsExpanded;
     }
 
     acceptFriendRequest(notification: FriendNotificationResponse) {
-        this.friendRequestsSubject.next("");
         this.friendRequests = this.friendRequests.filter(
             (value) => value !== notification,
         );
+        const chatRequest: ChatRequest = {
+            firstUsername: notification.sender,
+            secondUsername: notification.receiver,
+        };
+
         this.friendNotificationsService
             .acceptRequest(notification.id)
-            .subscribe();
+            .subscribe({
+                next: () => {
+                    this.chatService.createNewChat(chatRequest).subscribe();
+                },
+            });
     }
 
     rejectFriendRequest(notification: FriendNotificationResponse) {
-        this.friendRequestsSubject.next("");
         this.friendRequests = this.friendRequests.filter(
             (value) => value !== notification,
         );

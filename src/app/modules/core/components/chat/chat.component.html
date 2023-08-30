@@ -4,15 +4,17 @@
         <button class="close-button" (click)="closeChat()">X</button>
     </div>
     <div class="message-list">
-        <ng-container *ngFor="let message of messages">
-            <div class="message" [ngClass]="{ 'incoming': message.incoming, 'outgoing': !message.incoming }">
-                <p>{{ message.text }}</p>
-                <small>{{ message.timestamp | date:'shortTime':'':'pl' }}</small>
-            </div>
+        <ng-container *ngIf="chat !== undefined">
+            <ng-container *ngFor="let message of messageList">
+                <div class="message" [ngClass]="{ 'incoming': message.sender !== loggedUsername, 'outgoing': message.sender === loggedUsername }">
+                    <p>{{ message.message }}</p>
+                    <small>{{ message.date}}</small>
+                </div>
+            </ng-container>
         </ng-container>
     </div>
     <div class="message-input">
-        <input type="text" placeholder="Wiadomość..." [(ngModel)]="newMessageText" />
+        <input type="text" placeholder="Wiadomość..." [(ngModel)]="newMessageText" (keyup.enter)="sendMessage()" />
         <button (click)="sendMessage()">Wyślij</button>
     </div>
 </div>

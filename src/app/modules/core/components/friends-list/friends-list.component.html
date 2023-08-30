@@ -38,7 +38,7 @@
     </ng-template>
 
     <div *ngIf="selectedFriend">
-        <app-chat [friend]="selectedFriend" (chatClosed)="closeChat()"></app-chat>
+        <app-chat [friend]="selectedFriend" (chatClosed)="closeChat()" [loggedUsername]="username"></app-chat>
     </div>
 
 </div>

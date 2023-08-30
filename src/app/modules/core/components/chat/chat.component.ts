@@ -1,38 +1,49 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-
-interface Message {
-    text: string;
-    incoming: boolean;
-    timestamp: Date;
-}
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ChatService } from "../../services/chat.service";
+import {
+    ChatResponse,
+    MessageRequest,
+    MessageResponse,
+} from "../../models/chat.model";
 
 @Component({
     selector: "app-chat",
     templateUrl: "./chat.component.html",
     styleUrls: ["./chat.component.css"],
 })
-export class ChatComponent {
-    @Input() friend!: string | null;
+export class ChatComponent implements OnInit {
+    @Input() friend!: string;
+    @Input() loggedUsername!: string;
     @Output() chatClosed = new EventEmitter<void>();
     newMessageText = "";
+    chat!: ChatResponse;
+    messageList: MessageResponse[] = [];
+    constructor(private chatService: ChatService) {}
 
-    messages: Message[] = [
-        { text: "Cześć!", incoming: true, timestamp: new Date() },
-        { text: "Cześć! Co słychać?", incoming: false, timestamp: new Date() },
-        // Add more messages here
-    ];
+    ngOnInit(): void {
+        setInterval(() => {
+            this.chatService
+                .getByFriends(this.loggedUsername, this.friend)
+                .subscribe({
+                    next: (value) => {
+                        this.chat = value;
+                        this.messageList = value.messages;
+                    },
+                });
+        }, 1000);
+    }
+
     sendMessage() {
-        if (this.newMessageText.trim() === "") {
-            return;
-        }
-
-        const newMessage: Message = {
-            text: this.newMessageText,
-            incoming: false,
-            timestamp: new Date(),
+        const messageRequest: MessageRequest = {
+            sender: this.loggedUsername,
+            message: this.newMessageText,
         };
-
-        this.messages.push(newMessage);
+        this.chatService.sendMessage(messageRequest, this.chat.id).subscribe({
+            next: () =>
+                this.chatService.getAllMessagesInChat(this.chat.id).subscribe({
+                    next: (value) => (this.messageList = value),
+                }),
+        });
         this.newMessageText = "";
     }
 

@@ -3,7 +3,7 @@
         <h2>Czatujesz z {{friend}}</h2>
         <button class="close-button" (click)="closeChat()">X</button>
     </div>
-    <div class="message-list">
+    <div class="message-list" #messageContainer>
         <ng-container *ngIf="chat !== undefined">
             <ng-container *ngFor="let message of messageList">
                 <div class="message" [ngClass]="{ 'incoming': message.sender !== loggedUsername, 'outgoing': message.sender === loggedUsername }">

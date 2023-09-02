@@ -14,6 +14,7 @@ import { ChatService } from "../../services/chat.service";
 })
 export class FriendsListComponent implements OnInit {
     friends!: string[];
+    users = ["Tomasz", "Ewelina", "Karolina"];
     isFriendsListOpen = false;
     activeView = "myFriends";
     username = "";

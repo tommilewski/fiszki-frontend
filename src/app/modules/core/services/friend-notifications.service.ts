@@ -3,13 +3,18 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
 import { FriendNotificationResponse } from "../models/friend-notifications.model";
 import { Observable } from "rxjs";
+import { WebSocketSubject } from "rxjs/internal/observable/dom/WebSocketSubject";
+import { webSocket } from "rxjs/webSocket";
 
 @Injectable({
     providedIn: "root",
 })
 export class FriendNotificationsService {
     apiUrl = `${environment.apiUrl}/friend-requests`;
-    constructor(private http: HttpClient) {}
+    private socket$: WebSocketSubject<any>;
+    constructor(private http: HttpClient) {
+        this.socket$ = webSocket("ws://localhost:8080/websocket");
+    }
 
     getAllByUsername(
         username: string,
@@ -19,6 +24,18 @@ export class FriendNotificationsService {
         );
     }
 
+    public sendNotification(notification: {
+        id: number;
+        sender: string;
+        receiver: string;
+    }): void {
+        this.socket$.next(notification);
+    }
+
+    public getNotifications(): Observable<any> {
+        return this.socket$.asObservable();
+    }
+
     sendRequest(
         sender: string,
         receiver: string,
@@ -26,6 +43,8 @@ export class FriendNotificationsService {
         const params = new HttpParams()
             .append("sender", sender)
             .append("receiver", receiver);
+
+        this.sendNotification({ id: 1, sender, receiver });
         return this.http.post<Record<string, never>>(
             `${this.apiUrl}/send`,
             null,

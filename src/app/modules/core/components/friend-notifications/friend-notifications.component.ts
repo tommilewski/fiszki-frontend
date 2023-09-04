@@ -30,6 +30,15 @@ export class FriendNotificationsComponent implements OnInit {
                     },
                 });
         }, 1000);
+
+        this.friendNotificationsService.getNotifications().subscribe(
+            (message) => {
+                console.log(message);
+            },
+            (error) => {
+                console.error("Błąd WebSocket:", error);
+            },
+        );
     }
 
     toggleNotifications() {

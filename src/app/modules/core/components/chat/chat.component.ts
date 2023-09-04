@@ -45,7 +45,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.scrollToBottom();
+        setTimeout(() => this.scrollToBottom(), 50);
     }
 
     scrollToBottom() {
@@ -65,7 +65,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
                 }),
         });
         this.newMessageText = "";
-        this.scrollToBottom();
+        setTimeout(() => this.scrollToBottom(), 50);
     }
 
     closeChat() {

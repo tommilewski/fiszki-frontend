@@ -16,7 +16,7 @@
         <h2 class="mt-3 text-center">Moi Znajomi</h2>
         <mat-form-field class="d-flex justify-content-center align-items-center">
             <mat-label>Szukaj</mat-label>
-            <input matInput>
+            <input matInput [formControl]="searchMyFriendsInput">
         </mat-form-field>
         <ul>
             <li *ngFor="let friend of friends" class="d-flex justify-content-between align-items-center" (click)="selectFriend(friend)">
@@ -33,15 +33,15 @@
         <h2 class="mt-3 text-center">Szukaj Znajomych</h2>
         <mat-form-field class="d-flex justify-content-center align-items-center">
             <mat-label>Szukaj</mat-label>
-            <input matInput>
+            <input matInput [formControl]="searchFriendsInput">
         </mat-form-field>
         <ul>
-            <li *ngFor="let user of users" class="d-flex justify-content-between align-items-center">
+            <li *ngFor="let user of users" class="d-flex justify-content-between align-items-center" (click)="redirectToProfilePage(user, $event)">
                 <div class="w-75 d-flex align-items-center">
                     <div class="initial-circle">{{ getInitialLetterCircle(user) }}</div>
                     <span>{{user}}</span>
                 </div>
-                <mat-icon aria-hidden="false">person_add</mat-icon>
+                <mat-icon aria-hidden="false" (click)="addToFriend(user)">person_add</mat-icon>
             </li>
         </ul>
     </ng-template>

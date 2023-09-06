@@ -48,9 +48,12 @@ export class ChatService {
         );
     }
 
-    deleteChatById(chatId: number): Observable<Record<string, never>> {
+    deleteChatByFriends(
+        loggedUsername: string,
+        friend: string,
+    ): Observable<Record<string, never>> {
         return this.http.delete<Record<string, never>>(
-            `${this.apiUrl}/delete/${chatId}`,
+            `${this.apiUrl}/delete/${loggedUsername}/${friend}`,
         );
     }
 }

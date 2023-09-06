@@ -1,19 +1,21 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FriendNotificationResponse } from "../../models/friend-notifications.model";
 import { FriendNotificationsService } from "../../services/friend-notifications.service";
 import { ChatService } from "../../services/chat.service";
 import { ChatRequest } from "../../models/chat.model";
+import { interval, Subscription, switchMap } from "rxjs";
 
 @Component({
     selector: "app-friend-notifications",
     templateUrl: "./friend-notifications.component.html",
     styleUrls: ["./friend-notifications.component.css"],
 })
-export class FriendNotificationsComponent implements OnInit {
+export class FriendNotificationsComponent implements OnInit, OnDestroy {
     isNotificationsExpanded = false;
     @Input() username!: string;
 
     friendRequests: FriendNotificationResponse[] = [];
+    sub!: Subscription;
 
     constructor(
         private friendNotificationsService: FriendNotificationsService,
@@ -21,15 +23,18 @@ export class FriendNotificationsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        setInterval(() => {
-            this.friendNotificationsService
-                .getAllByUsername(this.username)
-                .subscribe({
-                    next: (value) => {
-                        this.friendRequests = value;
-                    },
-                });
-        }, 1000);
+        this.sub = interval(1000)
+            .pipe(
+                switchMap(() =>
+                    this.friendNotificationsService.getAllByUsername(
+                        this.username,
+                    ),
+                ),
+            )
+            .subscribe((value) => {
+                this.friendRequests = value;
+                this.friendRequests.reverse();
+            });
     }
 
     toggleNotifications() {
@@ -61,5 +66,9 @@ export class FriendNotificationsComponent implements OnInit {
         this.friendNotificationsService
             .rejectRequest(notification.id)
             .subscribe();
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 }

@@ -4,6 +4,7 @@ import {
     ElementRef,
     EventEmitter,
     Input,
+    OnDestroy,
     OnInit,
     Output,
     ViewChild,
@@ -14,34 +15,41 @@ import {
     MessageRequest,
     MessageResponse,
 } from "../../models/chat.model";
+import { interval, Subscription, switchMap } from "rxjs";
 
 @Component({
     selector: "app-chat",
     templateUrl: "./chat.component.html",
     styleUrls: ["./chat.component.css"],
 })
-export class ChatComponent implements OnInit, AfterViewInit {
+export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() friend!: string;
     @Input() loggedUsername!: string;
     @Output() chatClosed = new EventEmitter<void>();
     newMessageText = "";
     chat!: ChatResponse;
     messageList: MessageResponse[] = [];
+    sub!: Subscription;
 
     @ViewChild("messageContainer") messageContainer!: ElementRef;
     constructor(private chatService: ChatService) {}
 
     ngOnInit(): void {
-        setInterval(() => {
-            this.chatService
-                .getByFriends(this.loggedUsername, this.friend)
-                .subscribe({
-                    next: (value) => {
-                        this.chat = value;
-                        this.messageList = value.messages;
-                    },
-                });
-        }, 1000);
+        this.sub = interval(1000)
+            .pipe(
+                switchMap(() =>
+                    this.chatService.getByFriends(
+                        this.loggedUsername,
+                        this.friend,
+                    ),
+                ),
+            )
+            .subscribe({
+                next: (value) => {
+                    this.chat = value;
+                    this.messageList = value.messages;
+                },
+            });
     }
 
     ngAfterViewInit(): void {
@@ -70,5 +78,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
     closeChat() {
         this.chatClosed.emit();
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 }

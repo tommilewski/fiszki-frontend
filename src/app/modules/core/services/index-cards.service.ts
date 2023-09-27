@@ -11,7 +11,7 @@ import { Observable } from "rxjs";
     providedIn: "root",
 })
 export class IndexCardsService {
-    apiUrl = `${environment.apiUrl}`;
+    apiUrl = `${environment.apiUrl}/index-cards`;
     constructor(private http: HttpClient) {}
 
     getAllByUserUsername(username: string): Observable<IndexCardResponse[]> {

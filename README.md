@@ -1,27 +1,62 @@
-# LearnAppFrontend
+### backend: https://github.com/tommilewski/fiszki-backend
+## Introduction
+Fiszki is a web application built in Angular that allows users to create and share flashcards for learning with friends. The application makes it easy to create, share, and solve flashcards within friend groups
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.5.
+## App Features
 
-## Development server
+Fiszki offers a range of useful features:
+- Flashcard Creation: Users can create flashcards by entering questions and answers.
+- Learning Together: Flashcards can be shared with other users for collaborative learning.
+- Adding Friends: The app allows users to connect with others.
+- Registration and Login: Users can register, log in, and use the application.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Technologies Used
 
-## Code scaffolding
+The Fiszki application was built using the following technologies:
+- Angular: As the primary framework for building the user interface.  
+- Angular Material: For styling user interface components. 
+- TypeScript: As the programming language
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation and Setup
 
-## Build
+To run Fiszki on your local development environment, follow these steps:
+- Clone the source code repository from GitHub.
+- Navigate to the project directory.
+- Run the npm install command to install dependencies.
+-  Run the ng serve command to start the application.
+-   Open a web browser and go to http://localhost:4200/ to use the application.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Screenshots
+![login](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/logowanie.jpg)
 
-## Running unit tests
+![login-error](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/logowanie-bledy.jpg)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![register](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/rejestracja.jpg)
 
-## Running end-to-end tests
+![register-error](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/rejestracja-bledy.jpg)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+![menu](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/menu.jpg)
 
-## Further help
+![new](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/nowa-fiszka.jpg)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![notification](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/notyfikacja.jpg)
+
+![index-card-1](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/fiszka-1.jpg)
+
+![index-card-2](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/fiszka-2.jpg)
+
+![game](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/gra.jpg)
+
+![winning-game](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/gra-wygrana.jpg)
+
+![my-account](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/moje-konto.jpg)
+
+![find-friends](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/szukaj-znaj.jpg)
+
+![friend-request](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/zaproszenie.jpg)
+
+![friends](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/znajomi.jpg)
+
+![chat](https://raw.githubusercontent.com/tommilewski/fiszki-frontend/master/images/wiadmosci.jpg)
+
+
